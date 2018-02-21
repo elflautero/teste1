@@ -1,0 +1,255 @@
+				<property name="hibernate.dialect" value="org.hibernate.MySQLDialect"/>
+				  	 COMO ESTAVA
+				<property name="dialect"value="org.hibernate.dialect.MySQLDialect"></property>
+						COMO ESTÁ AGORA
+ERROR
+
+ould not obtain connection to query metadata : Unable to resolve name [org.hibernate.MySQLDialect] as strategy [org.hibernate.dialect.Dialect]
+Exception in thread "main" javax.persistence.PersistenceException: Unable to build entity manager factory
+
+------------------------------------------------------------------------------------------
+ERROR
+
+			As the error says, you need to specify the dialect in your hibernate.cfg file.
+			
+							<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+			
+			
+			Exception in thread "main" javax.persistence.PersistenceException: Unable to locate persistence units
+				at org.hibernate.jpa.HibernatePersistenceProvider.getEntityManagerFactoryBuilderOrNull(HibernatePersistenceProvider.java:84)
+				at org.hibernate.jpa.HibernatePersistenceProvider.getEntityManagerFactoryBuilderOrNull(HibernatePersistenceProvider.java:71)
+				at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:52)
+				at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:78)
+				at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+				at main.Main.main(Main.java:18)
+			Caused by: javax.persistence.PersistenceException: Invalid persistence.xml.
+			Error parsing XML [line : -1, column : -1] : cvc-complex-type.4: O atributo 'value' deve aparecer no elemento 'property'.
+			Error parsing XML [line : -1, column : -1] : cvc-complex-type.2.1: O elemento 'property' não deve ter um caractere ou um item com informações do elemento [children] porque o tipo de conteúdo do tipo é vazio.
+
+
+			<property name="dialect" value="org.hibernate.dialect.MySQLDialect"></property>
+
+______________________________________________________________________________________________________________
+
+ERROR
+
+Exception in thread "main" java.lang.NoSuchMethodError: javax.persistence.Table.indexes()[Ljavax/persistence/Index;
+	at org.hibernate.cfg.annotations.EntityBinder.processComplementaryTableDefinitions(EntityBinder.java:1087)
+	
+			-----------------------------------------------------------
+			You need to add hibernate-jpa-2.1-api-1.0.0.Final.jar to the classpath.
+			https://stackoverflow.com/questions/35568835/exception-in-thread-main-java-lang-nosuchmethoderror-javax-persistence-table
+			
+			
+			<dependency>
+			    <groupId>org.hibernate.javax.persistence</groupId>
+			    <artifactId>hibernate-jpa-2.1-api</artifactId>
+			    <version>1.0.0.Final</version>
+			</dependency>
+
+			NÃO RESOLVEU
+			
+______________________________________________________________________________________________________________
+
+ERROR
+
+INFO: HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+Exception in thread "main" java.lang.NoSuchMethodError: javax.persistence.Table.indexes()[Ljavax/persistence/Index;
+
+		------------------------------------------------------------------------------------
+		http://blog.csdn.net/wangyang1354/article/details/50675687
+		@Id  
+		    @GeneratedValue(generator="increment")  
+		    @GenericGenerator(name="increment", strategy = "increment")  
+		    public Long getUserId() {  
+		        return userId;  
+		    }  
+		    	NÃO RESOLVE
+		    
+		    colando para fazer teste com o outro	
+			<dependency>
+		  		<groupId>org.eclipse.persistence</groupId>
+		  		<artifactId>javax.persistence</artifactId>
+		  		<version>2.0.0</version>
+  			</dependency>
+
+			<dependency>
+			    <groupId>javax.persistence</groupId>
+			    <artifactId>javax.persistence-api</artifactId>
+			    <version>2.2</version>
+			</dependency>
+
+
+____________________________________________________________
+
+ERROR
+
+fev 20, 2018 6:43:22 PM org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+WARN: SQL Error: 1146, SQLState: 42S02
+fev 20, 2018 6:43:22 PM org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+ERROR: Table 'somde078_srh.EMP_DB' doesn't exist
+fev 20, 2018 6:43:22 PM org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl release
+INFO: HHH000010: On release of batch it still contained JDBC statements
+Exception in thread "main" javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:86)
+	at main.Main.createEmployee(Main.java:34)
+	at main.Main.main(Main.java:23)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: could not execute statement
+	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1692)
+	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1602)
+	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:67)
+	... 2 more
+Caused by: org.hibernate.exception.SQLGrammarException: could not execute statement
+
+
+
+
+
+
+
+
+
+
+______________________________________________________________________________________________________________
+---------------------------------MUDEI-------------------------------------
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="pessoa_sequence")
+		@SequenceGenerator(name="pessoa_sequence", sequenceName="pes_seq")
+		private int id;
+		private String firstName;
+	    private String lastName;
+	    private String dept;
+	    
+ERROR
+
+INFO: HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+Exception in thread "main" javax.persistence.PersistenceException: Unable to build entity manager factory
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:66)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at main.Main.main(Main.java:18)
+Caused by: org.hibernate.AnnotationException: No identifier specified for entity: teste1.Employee
+
+
+-------------SOLUCTION ----------
+
+You are missing a field annotated with @Id. Each @Entity needs an @Id - this is the primary key in the database.
+	
+	
+______________________________________________________________________________________________________________
+
+ERROR
+
+Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: teste1.Employee
+
+SOLUCTION
+
+	tem que tirar o id, já que ele é auto incremento
+	
+	
+__________________________
+ERROR
+
+fev 21, 2018 9:53:29 AM org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+ERROR: Table 'somde078_srh.pes_seq' doesn't exist
+Exception in thread "main" javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarException: error performing isolated work
+	at org.hib
+
+SOLUCTION
+
+		--- TIREI O SEQUENCE
+@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="pessoa_sequence")
+		@SequenceGenerator(name="pessoa_sequence", sequenceName="pes_seq")
+		
+		
+___________________________________________________________________________________________
+
+ERROR
+
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'somde078_srh.EMP_DB' doesn't exist
+	at java.base/jdk.interna
+	
+
+
+--- SOLUCTION -----
+
+		original
+		<property name="dialect" value="org.hibernate.dialect.MySQLDialect"></property>	
+		
+		troquei por
+		<property name="dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"></property>	
+		NÃO  RESOLVEU
+		
+		<!-- entidade mapeada -->
+   		<class>teste1.Employee</class>
+   		mapear a entidade no persistence = NÃO FUNCIONA, AINDA  "TABLE DOENS'T EXIST
+   		
+   		
+___________________________________________________________________________________________
+
+ERROR
+
+TESTANDO OUTRO PERSISTENCE
+<property name="dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"></property>	
+			<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop> -->								
+			<property name="hibernate.connection.url" value="jdbc:mysql://br234.hostgator.com.br:3306/somde078_srh" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.username" value="somde078_srh" />
+			<property name="hibernate.connection.password" value="12345" />
+			<property name="hibernate.archive.autodetection" value="class" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hbm2ddl.auto" value="update" />
+			<!-- hibernate.hbm2ddl.auto  hbm2ddl.auto -->
+			
+			RESOLVIDO COM ESTE ESQUEMA
+			
+					
+					<!-- dados da conexao -->
+		    <property name="javax.persistence.jdbc.driver" 
+		             value="com.mysql.jdbc.Driver" />
+		    <property name="javax.persistence.jdbc.url" 
+		            value="jdbc:mysql://br234.hostgator.com.br:3306/somde078_srh"/>
+		    <property name="javax.persistence.jdbc.user" 
+		            value="somde078_srh" />
+		    <property name="javax.persistence.jdbc.password" 
+		            value="12345" />
+		
+		     <!--  propriedades do hibernate -->
+		     <property name="hibernate.dialect" 
+		            value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+		    <property name="hibernate.show_sql" value="true" />
+		    <property name="hibernate.format_sql" value="true" />
+		
+		    <!--  atualiza o banco, gera as tabelas se for preciso -->
+		    <property name="hibernate.hbm2ddl.auto" value="update" />	
+			
+			
+			
+			
+			
+
+--- SOLUCTION -----
+
+
+___________________________________________________________________________________________
+
+ERROR
+
+
+--- SOLUCTION -----
+
+
+___________________________________________________________________________________________
+
+ERROR
+
+
+--- SOLUCTION -----
+
+
+___________________________________________________________________________________________
+
+ERROR
+
+
+--- SOLUCTION -----
